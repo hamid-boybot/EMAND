@@ -1,0 +1,23 @@
+db:
+  type: 'postgres'
+  host: 'ec2-184-72-235-80.compute-1.amazonaws.com'
+  port: 5432
+  username: 'mhznubhcthsqpj'
+  password: 'cb35bc982c897f43579271a3ad1d3a33129293760c1fff3582f3a0d569d30acc'
+  database: 'dddgrm7fh7oe9t'
+  synchronize: true
+
+server:
+  port: 3001
+  scheme: 'https'
+
+jwt:
+  secret: 'SECRET'
+  expiresIn: 1000000
+
+maps:
+  key: 'AIzaSyCQg9-Vx2KgFxSkWGujh3_aoklegMvB3Ms'
+
+mail:
+  user: 'mail@mail.com'
+  password: 'password'
