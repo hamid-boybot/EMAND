@@ -64,6 +64,8 @@ export class ProductService {
 
     product.product_type = product_type;
 
+    product.price = price;
+
     try {
       await product.save();
     } catch (error) {

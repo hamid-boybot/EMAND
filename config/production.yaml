@@ -16,7 +16,7 @@ jwt:
   expiresIn: 1000000
 
 maps:
-  key: 'AIzaSyCQg9-Vx2KgFxSkWGujh3_aoklegMvB3Ms'
+  key: 'key'
 
 mail:
   user: 'mail@mail.com'

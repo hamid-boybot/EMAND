@@ -1,6 +1,6 @@
 db:
   type: 'postgres'
-  host: 'fastshop.c934rjf1iqqy.us-east-2.rds.amazonaws.com'
+  host: 'database-1.c934rjf1iqqy.us-east-2.rds.amazonaws.com'
   port: 5432
   username: 'postgres'
   password: 'postgres'
@@ -16,8 +16,8 @@ jwt:
   expiresIn: 1000000
 
 maps:
-  key: 'AIzaSyCQg9-Vx2KgFxSkWGujh3_aoklegMvB3Ms'
+  key: 'key'
 
 mail:
-  user: 'mail@mail.com'
+  user: 'nidhal.sabbah@gmail.com'
   password: 'password'

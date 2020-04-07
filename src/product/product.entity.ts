@@ -32,9 +32,6 @@ export class Product extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.products,
-  )
+  @ManyToOne(() => User, user => user.products)
   user: User;
 }
