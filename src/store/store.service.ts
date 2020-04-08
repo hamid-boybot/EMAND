@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateStoreDTO } from './dto/create-store.dto';
 import { UserRepository } from '../user/user.repository';
 import { Store } from './store.entity';
+import { FilterStoreDTO } from './dto/filter-store.dto';
 
 @Injectable()
 export class StoreService {
@@ -65,5 +66,9 @@ export class StoreService {
 
   async updateStore(createStoreDTO: CreateStoreDTO, user, id): Promise<Store> {
     return await this.storeRepository.updateStore(createStoreDTO, user, id);
+  }
+
+  async findStore(filterStoreDTO: FilterStoreDTO, user) {
+    return await this.storeRepository.findStore(filterStoreDTO, user);
   }
 }

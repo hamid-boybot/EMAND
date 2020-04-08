@@ -10,6 +10,7 @@ import {
 import * as bcrypt from 'bcryptjs';
 import { Product } from '../product/product.entity';
 import { Address } from '../address/address.entity';
+import { Order } from '../order/order.entity';
 
 export enum UserRole {
   user = 'user',
@@ -79,18 +80,13 @@ export class User extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToMany(
-    () => Product,
-    product => product.user,
-    { eager: true },
-  )
+  @OneToMany(() => Product, product => product.user, { eager: true })
   products: Product[];
 
-  @OneToMany(
-    () => Address,
-    address => address.user,
-    { eager: true },
-  )
+  @OneToMany(() => Order, order => order.user, { eager: true })
+  orders: Order[];
+
+  @OneToMany(() => Address, address => address.user, { eager: true })
   addresses: Address[];
 
   async validatePassword(password: string): Promise<boolean> {
