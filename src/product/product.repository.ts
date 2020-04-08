@@ -44,9 +44,10 @@ export class ProductRepository extends Repository<Product> {
     let findProduct;
 
     try {
-      const query = await this.createQueryBuilder(
-        'product',
-      ).where('product.id_product=:id', { id });
+      const query = await this.createQueryBuilder('product').where(
+        'product.id_product=:id',
+        { id },
+      );
 
       findProduct = await query.getOne();
     } catch (error) {
@@ -101,6 +102,7 @@ export class ProductRepository extends Repository<Product> {
       throw new NotFoundException('Product not found');
     }
 
+    console.log(user);
     const findUser = await this.findOne({ id_product: id, user: user.id_user });
 
     if (!findUser) {

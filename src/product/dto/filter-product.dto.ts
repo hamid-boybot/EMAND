@@ -36,7 +36,7 @@ export class FilterProductDTO {
   @IsOptional()
   take: number;
 
-  @ApiPropertyOptional({ example: 5 })
+  @ApiPropertyOptional({ example: 0 })
   @Transform(skip => parseInt(skip))
   @IsNumber()
   @IsOptional()

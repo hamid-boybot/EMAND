@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 import { User } from '../user/user.entity';
 
+import { Store } from '../store/store.entity';
+
 export enum ProductType {
   fruit = 'fruit',
   légume = 'légume',
@@ -34,4 +36,7 @@ export class Product extends BaseEntity {
 
   @ManyToOne(() => User, user => user.products)
   user: User;
+
+  @ManyToOne(() => Store, store => store.products)
+  store: Store;
 }

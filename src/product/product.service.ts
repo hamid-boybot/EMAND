@@ -66,6 +66,8 @@ export class ProductService {
 
     product.price = price;
 
+    product.user = findUser;
+
     try {
       await product.save();
     } catch (error) {

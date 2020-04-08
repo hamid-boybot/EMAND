@@ -3,6 +3,7 @@ import * as config from 'config';
 import { User } from './src/user/user.entity';
 import { Address } from './src/address/address.entity';
 import { Product } from './src/product/product.entity';
+import { Store } from './src/store/store.entity';
 
 const dbConfig = config.get('db');
 
@@ -13,7 +14,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: dbConfig.username,
   password: dbConfig.password,
   database: dbConfig.database,
-  entities: [User, Address, Product],
+  entities: [User, Address, Product, Store],
   synchronize: dbConfig.synchronize,
   logging: false,
 };
