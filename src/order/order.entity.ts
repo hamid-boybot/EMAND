@@ -40,6 +40,9 @@ export class Order extends BaseEntity {
   @Column()
   order_amount: number;
 
+  @Column()
+  order_date: string;
+
   @CreateDateColumn()
   created_at: Date;
 

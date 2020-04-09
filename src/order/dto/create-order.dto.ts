@@ -4,35 +4,51 @@ import { IsString, IsNumber, Min } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class CreateOrderDTO {
-  @ApiProperty({ example: 'Papier toillette' })
+  @ApiProperty({ example: 'Hamid' })
   @IsString()
-  name: string;
+  frist_name: string;
 
   @ApiProperty({
-    example:
-      'https://static.actu.fr/uploads/2019/07/AdobeStock_90990567-854x568.jpeg',
+    example: 'Bassam',
   })
   @IsString()
-  picture: string;
+  last_name: string;
 
   @ApiProperty({
-    example:
-      'Homines enim eruditos et sobrios ut infaustos et inutiles vitant, eo quoque accedente quod et nomenclatores adsueti haec et talia venditare, mercede accepta lucris quosdam et prandiis inserunt subditicios ignobiles et obscuros. At nunc si ad aliquem bene nummatum tumentemque ideo honestus advena salutatum introieris, primitus tamquam exoptatus suscipieris et interrogatus multa coactusque mentiri, miraberis numquam antea visus summatem virum tenuem te sic enixius observantem, ut paeniteat ob haec bona tamquam praecipua non vidisse ante decennium Romam.Victus universis caro ferina est lactisque abundans copia qua sustentantur, et herbae multiplices et siquae alites capi per aucupium possint, et plerosque mos vidimus frumenti usum et vini penitus ignorantes.',
+    example: 'hamid-bassam@gmail.com',
   })
   @IsString()
-  description: string;
+  mail: string;
 
   @ApiProperty({
-    enum: ['fruit', 'lÃ©gume', 'alimentaire', 'sanitaire'],
-    example: 'sanitaire',
+    example: '0770702525',
   })
-  order_type: OrderType;
+  @IsString()
+  phone_number: string;
 
-  @ApiProperty({ example: 10 })
-  @Transform(price => parseInt(price))
-  @IsNumber()
-  @Min(0)
-  price: number;
+  @ApiProperty({
+    example: '[]',
+  })
+  products: [
+    {
+      price: number;
+      id_product: string;
+      quantity: number;
+      product_name: string;
+    }
+  ];
+
+  @ApiProperty({
+    example: '18-h',
+  })
+  @IsString()
+  order_date: string;
+
+  @ApiProperty({
+    example: 20,
+  })
+  @IsString()
+  order_amount: number;
 }
 
 export enum OrderType {

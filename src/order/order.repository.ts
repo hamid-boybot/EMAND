@@ -84,8 +84,6 @@ export class OrderRepository extends Repository<Order> {
   }
 
   async updateOrder(createOrderDto: CreateOrderDTO, user, id): Promise<Order> {
-    const { name, description, picture, order_type, price } = createOrderDto;
-
     const findOrder = await this.findOne({ id_order: id });
 
     if (!findOrder) {
@@ -102,14 +100,7 @@ export class OrderRepository extends Repository<Order> {
 
     await this.createQueryBuilder()
       .update(Order)
-      .set({
-        name: name,
-        description: description,
-        picture: picture,
-        order_type: order_type,
-        price: price,
-        user: user,
-      })
+      .set({})
       .where({ id_order: id })
       .execute();
 
