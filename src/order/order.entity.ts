@@ -46,9 +46,11 @@ export class Order extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(() => User, user => user.orders)
+  @ManyToOne(() => User, user => user.orders, {
+    cascade: true,
+  })
   user: User;
 
-  @OneToMany(() => OrderDetail, ordersdetail => ordersdetail.order)
-  ordersdetails: OrderDetail[];
+  @OneToMany(() => OrderDetail, orderDetails => orderDetails.order)
+  orderDetails: OrderDetail[];
 }

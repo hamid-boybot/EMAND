@@ -1,13 +1,14 @@
 import { Repository, EntityRepository } from 'typeorm';
-import { Product } from './product.entity';
+import { Product, MeasureType } from './product.entity';
 import { CreateProductDTO } from './dto/create-product.dto';
-import { FilterProductDTO } from './dto/filter-product.dto';
+import { FilterProductDTO, SortType } from './dto/filter-product.dto';
 import { UnauthorizedException, NotFoundException } from '@nestjs/common';
+import { OrderType } from 'src/order/orderDetail.entity';
 
 @EntityRepository(Product)
 export class ProductRepository extends Repository<Product> {
   async findProduct(filterProductDTO: FilterProductDTO, user) {
-    let { search, product_type, take, skip, order, price } = filterProductDTO;
+    let { search, product_type, take, skip, sort, price } = filterProductDTO;
     take = take || 10;
     skip = skip || 0;
 
@@ -28,8 +29,12 @@ export class ProductRepository extends Repository<Product> {
       );
     }
 
-    if (order === 'price') {
+    if (sort === SortType.price) {
       query.orderBy({ 'product.price': 'ASC' });
+    }
+
+    if (sort === SortType.measure_type) {
+      query.orderBy({ 'product.measure_type': 'ASC' });
     }
 
     const products: any = await query
@@ -51,8 +56,8 @@ export class ProductRepository extends Repository<Product> {
 
       findProduct = await query.getOne();
     } catch (error) {
-      throw new NotFoundException('not found ');
       console.log(error);
+      throw new NotFoundException('not found ');
     }
 
     return findProduct;
@@ -94,6 +99,7 @@ export class ProductRepository extends Repository<Product> {
       picture,
       product_type,
       price,
+      measure_type,
     } = createProductDto;
 
     const findProduct = await this.findOne({ id_product: id });
@@ -120,6 +126,7 @@ export class ProductRepository extends Repository<Product> {
         product_type: product_type,
         price: price,
         user: user,
+        measure_type: measure_type,
       })
       .where({ id_product: id })
       .execute();

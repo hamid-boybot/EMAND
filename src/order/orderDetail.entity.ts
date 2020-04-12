@@ -26,16 +26,21 @@ export class OrderDetail extends BaseEntity {
   @Column()
   product_name: string;
   @Column()
-  prix: number;
+  price: number;
   @Column()
   quantity: number;
+  @Column()
+  measure: string;
 
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToOne(() => Product)
-  product: Product;
+  @Column()
+  id_product: string;
 
-  @ManyToOne(() => Order, order => order.ordersdetails)
+  /*   @OneToOne(() => Product)
+  product: Product; */
+
+  @ManyToOne(() => Order, order => order.orderDetails)
   order: Order;
 }

@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductRepository } from './product.repository';
 import { AddressRepository } from '../address/address.repository';
 import { UserRepository } from '../user/user.repository';
+import { OrderDetail } from '../order/orderDetail.entity';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { UserRepository } from '../user/user.repository';
       ProductRepository,
       AddressRepository,
       UserRepository,
+      OrderDetail,
     ]),
   ],
   providers: [ProductService],

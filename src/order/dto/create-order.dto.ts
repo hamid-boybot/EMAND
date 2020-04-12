@@ -6,7 +6,7 @@ import { Transform } from 'class-transformer';
 export class CreateOrderDTO {
   @ApiProperty({ example: 'Hamid' })
   @IsString()
-  frist_name: string;
+  first_name: string;
 
   @ApiProperty({
     example: 'Bassam',
@@ -47,13 +47,12 @@ export class CreateOrderDTO {
   @ApiProperty({
     example: 20,
   })
-  @IsString()
   order_amount: number;
 }
-
+/*
 export enum OrderType {
   fruit = 'fruit',
   legume = 'légume',
   alimentaire = 'alimentaire',
   sanitaire = 'sanitaire',
-}
+} */

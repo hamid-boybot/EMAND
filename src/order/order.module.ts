@@ -6,6 +6,7 @@ import { OrderRepository } from './order.repository';
 import { AddressRepository } from '../address/address.repository';
 import { UserRepository } from '../user/user.repository';
 import { ProductRepository } from '../product/product.repository';
+import { OrderDetail } from './orderDetail.entity';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ProductRepository } from '../product/product.repository';
       AddressRepository,
       UserRepository,
       ProductRepository,
+      OrderDetail,
     ]),
   ],
   providers: [OrderService],

@@ -16,9 +16,10 @@ export enum ProductType {
   sanitaire = 'sanitaire',
 }
 
-export enum Order {
+export enum SortType {
   name = 'name',
   price = 'price',
+  measure_type = 'measure',
 }
 
 export class FilterProductDTO {
@@ -48,7 +49,7 @@ export class FilterProductDTO {
   @IsOptional()
   price: number;
 
-  @ApiPropertyOptional({ example: 'price', enum: Object.keys(Order) })
+  @ApiPropertyOptional({ example: 'price', enum: Object.keys(SortType) })
   @IsOptional()
-  order: Order;
+  sort: SortType;
 }

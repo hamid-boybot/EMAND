@@ -2,6 +2,7 @@ import { Delete } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNumber, Min } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { isString } from 'util';
 
 export class CreateProductDTO {
   @ApiProperty({ example: 'Papier toillette' })
@@ -23,6 +24,12 @@ export class CreateProductDTO {
   description: string;
 
   @ApiProperty({
+    enum: ['piece', 'kg', 'g', 'm2'],
+    example: 'piece',
+  })
+  measure_type: MeasureType;
+
+  @ApiProperty({
     enum: ['fruit', 'légume', 'alimentaire', 'sanitaire'],
     example: 'sanitaire',
   })
@@ -33,6 +40,13 @@ export class CreateProductDTO {
   @IsNumber()
   @Min(0)
   price: number;
+}
+
+export enum MeasureType {
+  piece = 'piece',
+  kg = 'kg',
+  grammes = 'g',
+  surface = 'm2',
 }
 
 export enum ProductType {

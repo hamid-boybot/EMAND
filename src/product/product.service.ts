@@ -52,6 +52,7 @@ export class ProductService {
       picture,
       product_type,
       price,
+      measure_type,
     } = createProductDTO;
 
     const product = this.eventRepository.create();
@@ -63,6 +64,8 @@ export class ProductService {
     product.picture = picture;
 
     product.product_type = product_type;
+
+    product.measure_type = measure_type;
 
     product.price = price;
 
