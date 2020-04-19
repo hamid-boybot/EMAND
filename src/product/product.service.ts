@@ -12,6 +12,7 @@ import { FilterProductDTO } from './dto/filter-product.dto';
 import { AddressRepository } from '../address/address.repository';
 import { UpdateResult } from 'typeorm';
 import { UserRepository } from '../user/user.repository';
+import { StoreRepository } from '../store/store.repository';
 
 @Injectable()
 export class ProductService {
@@ -22,6 +23,8 @@ export class ProductService {
     private readonly addressRepository: AddressRepository,
     @InjectRepository(UserRepository)
     private readonly userRepository: UserRepository,
+    @InjectRepository(StoreRepository)
+    private readonly storeRepository: StoreRepository,
   ) {}
 
   async findProduct(filterProductDTO: FilterProductDTO, user) {
@@ -53,7 +56,14 @@ export class ProductService {
       product_type,
       price,
       measure_type,
+      id_store,
     } = createProductDTO;
+
+    const store = await this.storeRepository.findOne({ id_store: id_store });
+
+    if (!store) {
+      throw new NotFoundException("Nous n'avons pas trouvé ce magasins");
+    }
 
     const product = this.eventRepository.create();
 
@@ -70,6 +80,8 @@ export class ProductService {
     product.price = price;
 
     product.user = findUser;
+
+    product.store = store;
 
     try {
       await product.save();

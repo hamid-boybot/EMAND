@@ -18,35 +18,44 @@ import { FilterOrderDTO } from './dto/filter-order.dto';
 import { ProductRepository } from '../product/product.repository';
 import { UpdateResult } from 'typeorm';
 import { UserRepository } from '../user/user.repository';
+import { StoreRepository } from '../store/store.repository';
 
 @Injectable()
 export class OrderService {
   constructor(
     @InjectRepository(OrderRepository)
-    private readonly eventRepository: OrderRepository,
+    private readonly orderRepository: OrderRepository,
     @InjectRepository(ProductRepository)
     private readonly productRepository: ProductRepository,
     @InjectRepository(UserRepository)
     private readonly userRepository: UserRepository,
     @InjectRepository(OrderDetail)
     private readonly orderDetailRepository: Repository<OrderDetail>,
+    @InjectRepository(StoreRepository)
+    private readonly storeRepository: StoreRepository,
   ) {}
 
-  async getOrders( user) {
-    return await this.eventRepository.getOrders( user);
+  async getOrders(id_store, user) {
+    const store = await this.storeRepository.findOne({ id_store: id_store });
+    if (!store) {
+      throw new NotFoundException("Nous n'avons pas trouvé ce magasins");
+    }
+
+    const orders = await this.orderRepository.find({ store: store });
+
+    return orders;
   }
 
   async findOrder(filterOrderDTO: FilterOrderDTO, user) {
-    return await this.eventRepository.findOrder(filterOrderDTO, user);
+    return await this.orderRepository.findOrder(filterOrderDTO, user);
   }
 
   async getOrder(id, user): Promise<{}> {
-    return await this.eventRepository.getOrder(id, user);
+    return await this.orderRepository.getOrder(id, user);
   }
 
   async createOrder(createOrderDTO: CreateOrderDTO): Promise<Order> {
-    
-  /*   const findUser = await this.userRepository.findOne({
+    /*   const findUser = await this.userRepository.findOne({
       id_user: user.id_user,
     });
 
@@ -63,13 +72,13 @@ export class OrderService {
       mail,
       phone_number,
       order_amount,
-      products
+      products,
     } = createOrderDTO;
 
-    const order = this.eventRepository.create();
+    const order = this.orderRepository.create();
     // const products = order.orderDetails;
-    
- /*    const products = [
+
+    /*    const products = [
       {
         price: 10,
         id_product: 'f3ce7082-dd03-4c3e-a9f1-95328a322d2d',
@@ -165,10 +174,10 @@ export class OrderService {
   }
 
   async deleteOrder(id, user): Promise<{}> {
-    return await this.eventRepository.deleteOrder(id, user);
+    return await this.orderRepository.deleteOrder(id, user);
   }
 
   async updateOrder(createOrderDTO: CreateOrderDTO, user, id): Promise<Order> {
-    return await this.eventRepository.updateOrder(createOrderDTO, user, id);
+    return await this.orderRepository.updateOrder(createOrderDTO, user, id);
   }
 }

@@ -6,19 +6,6 @@ import { UnauthorizedException, NotFoundException } from '@nestjs/common';
 
 @EntityRepository(Order)
 export class OrderRepository extends Repository<Order> {
-
-  async getOrders(user , store) {
-
-    console.log('le user que je recupere: '+{user});
-
-    const query =  await this.find({ store : store.store_id , user: user.id_user });
-
-    return query;
-  }
-
-
-
-
   async findOrder(filterOrderDTO: FilterOrderDTO, user) {
     let {
       search,

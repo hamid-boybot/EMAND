@@ -32,14 +32,13 @@ import { RolesGuard } from '../common/guards/roles.guard';
 export class OrderController {
   constructor(private orderService: OrderService) {}
 
-
-  @Get('/owner-orders')
-  @UseGuards(AuthGuard('jwt'))
-  async getOrders( @getUser() user) {
-    return await this.orderService.getOrders( user);
+  @Get('/owner-orders/:id')
+  @UseGuards(AuthGuard('jwt')) // protection de la route par authentification json web token
+  @ApiParam({ name: 'id' }) // pour swagger
+  // pour nestJs =>
+  async getOrders(@Param('id') id_store, @getUser() user) {
+    return await this.orderService.getOrders(id_store, user);
   }
-
-
 
   @Get('/search')
   @UseGuards(AuthGuard('jwt'))
