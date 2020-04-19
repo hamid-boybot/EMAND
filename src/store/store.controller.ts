@@ -30,7 +30,7 @@ export class StoreController {
 
   @Get('/')
   async findProduct() {
-    return 'ok';
+    return await this.storeService.findStore();
   }
 
   @Post()
@@ -62,12 +62,12 @@ export class StoreController {
     return await this.storeService.updateStore(createStoreDto, user, id);
   }
 
-  @Get('/search')
+  /*  @Get('/search')
   @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({
     description: 'return the products corresponding to the search parameters',
   })
   async findStore(@Query() filterStoreDTO: FilterStoreDTO, @getUser() user) {
     return await this.storeService.findStore(filterStoreDTO, user);
-  }
+  } */
 }

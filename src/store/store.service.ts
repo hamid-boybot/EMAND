@@ -68,7 +68,7 @@ export class StoreService {
     return await this.storeRepository.updateStore(createStoreDTO, user, id);
   }
 
-  async findStore(filterStoreDTO: FilterStoreDTO, user) {
-    return await this.storeRepository.findStore(filterStoreDTO, user);
+  async findStore() {
+    return await this.storeRepository.find();
   }
 }

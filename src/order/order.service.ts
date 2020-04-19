@@ -73,7 +73,13 @@ export class OrderService {
       phone_number,
       order_amount,
       products,
+      id_store,
     } = createOrderDTO;
+
+    const store = await this.storeRepository.findOne({ id_store: id_store });
+    if (!store) {
+      throw new NotFoundException("Nous n'avons pas trouvé ce magasins");
+    }
 
     const order = this.orderRepository.create();
     // const products = order.orderDetails;
@@ -104,6 +110,7 @@ export class OrderService {
     order.collect_date = collect_date;
 
     order.birth_date = '9';
+    order.store = store;
 
     let computed_amount = 0;
     let savedOrder;
