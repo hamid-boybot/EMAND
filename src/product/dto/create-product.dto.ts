@@ -40,6 +40,12 @@ export class CreateProductDTO {
   @IsNumber()
   @Min(0)
   price: number;
+
+  @ApiProperty({
+    example: 'id_store',
+  })
+  @IsString()
+  id_store: string;
 }
 
 export enum MeasureType {

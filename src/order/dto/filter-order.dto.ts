@@ -6,6 +6,7 @@ import {
   IsString,
   IsOptional,
   IsDateString,
+  IsDate,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 
@@ -16,9 +17,10 @@ export enum OrderType {
   sanitaire = 'sanitaire',
 }
 
-export enum Order {
+export enum OrderSortType {
   name = 'name',
-  price = 'price',
+  order_amount = 'order_amount',
+  order_creationDate = 'order_creationDate',
 }
 
 export class FilterOrderDTO {
@@ -43,12 +45,18 @@ export class FilterOrderDTO {
   skip: number;
 
   @ApiPropertyOptional({ example: 10 })
-  @Transform(price => parseInt(price))
+  @Transform(order_amount => parseInt(order_amount))
   @IsNumber()
   @IsOptional()
-  price: number;
+  order_amount: number;
 
-  @ApiPropertyOptional({ example: 'price', enum: Object.keys(Order) })
+  @ApiPropertyOptional({ example: 11 / 3 / 2020 })
+  @Transform(created_at => parseInt(created_at))
+  @IsDate()
   @IsOptional()
-  order: Order;
+  created_at: Date;
+
+  @ApiPropertyOptional({ example: 'price', enum: Object.keys(OrderSortType) })
+  @IsOptional()
+  orderSortType: OrderSortType;
 }

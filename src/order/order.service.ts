@@ -1,3 +1,5 @@
+//import { OpenRouteDTO } from './dto/open-route';
+
 import {
   Injectable,
   NotFoundException,
@@ -30,6 +32,10 @@ export class OrderService {
     private readonly orderDetailRepository: Repository<OrderDetail>,
   ) {}
 
+  async getOrders( user) {
+    return await this.eventRepository.getOrders( user);
+  }
+
   async findOrder(filterOrderDTO: FilterOrderDTO, user) {
     return await this.eventRepository.findOrder(filterOrderDTO, user);
   }
@@ -38,8 +44,9 @@ export class OrderService {
     return await this.eventRepository.getOrder(id, user);
   }
 
-  async createOrder(createOrderDTO: CreateOrderDTO, user): Promise<Order> {
-    const findUser = await this.userRepository.findOne({
+  async createOrder(createOrderDTO: CreateOrderDTO): Promise<Order> {
+    
+  /*   const findUser = await this.userRepository.findOne({
       id_user: user.id_user,
     });
 
@@ -48,19 +55,21 @@ export class OrderService {
         'You need to verify your identity first then you could post orders',
       );
     }
-
+ */
     const {
       first_name,
       last_name,
-      order_date,
+      collect_date,
       mail,
       phone_number,
       order_amount,
+      products
     } = createOrderDTO;
 
     const order = this.eventRepository.create();
-
-    const products = [
+    // const products = order.orderDetails;
+    
+ /*    const products = [
       {
         price: 10,
         id_product: 'f3ce7082-dd03-4c3e-a9f1-95328a322d2d',
@@ -73,7 +82,7 @@ export class OrderService {
         quantity: 2,
         product_name: 'banane',
       },
-    ];
+    ]; */
 
     order.first_name = first_name;
 
@@ -83,7 +92,7 @@ export class OrderService {
 
     order.phone_number = phone_number;
 
-    order.order_date = order_date;
+    order.collect_date = collect_date;
 
     order.birth_date = '9';
 
@@ -134,6 +143,7 @@ export class OrderService {
       /*    <BDD relation> */
       orderDetail.order = savedOrder;
       orderDetail.id_product = foundProduct.id_product;
+      console.log(foundProduct.name);
       //    </BDD relation> */
       //    <Recup de prop Objet>
       orderDetail.product_name = foundProduct.name;

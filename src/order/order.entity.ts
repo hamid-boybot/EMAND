@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { OrderDetail } from './orderDetail.entity';
-
+import { Store } from '../store/store.entity';
 export enum OrderType {
   fruit = 'fruit',
   legume = 'légume',
@@ -41,7 +41,7 @@ export class Order extends BaseEntity {
   order_amount: number;
 
   @Column()
-  order_date: string;
+  collect_date: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -50,6 +50,11 @@ export class Order extends BaseEntity {
     cascade: true,
   })
   user: User;
+
+  @ManyToOne(() => Store, store => store.orders, {
+    cascade: true,
+  })
+  store: Store;
 
   @OneToMany(() => OrderDetail, orderDetails => orderDetails.order)
   orderDetails: OrderDetail[];

@@ -38,7 +38,7 @@ export class OrderDetail extends BaseEntity {
   @Column()
   id_product: string;
 
-  /*   @OneToOne(() => Product)
+  /* @OneToOne(() => Product)
   product: Product; */
 
   @ManyToOne(() => Order, order => order.orderDetails)

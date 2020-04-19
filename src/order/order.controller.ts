@@ -32,6 +32,15 @@ import { RolesGuard } from '../common/guards/roles.guard';
 export class OrderController {
   constructor(private orderService: OrderService) {}
 
+
+  @Get('/owner-orders')
+  @UseGuards(AuthGuard('jwt'))
+  async getOrders( @getUser() user) {
+    return await this.orderService.getOrders( user);
+  }
+
+
+
   @Get('/search')
   @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({
@@ -62,12 +71,12 @@ export class OrderController {
   @Post()
   //@Roles('admin')
   //@UseGuards(AuthGuard('jwt'), RolesGuard)
-  @UseGuards(AuthGuard('jwt'))
+  //@UseGuards(AuthGuard('jwt'))
   async createOrder(
     @Body() createOrderDto: CreateOrderDTO,
     @getUser() user,
   ): Promise<Order> {
-    return await this.orderService.createOrder(createOrderDto, user);
+    return await this.orderService.createOrder(createOrderDto);
   }
 
   @Delete('/:id')

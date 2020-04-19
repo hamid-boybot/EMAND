@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { Product } from '../product/product.entity';
+import { Order } from '../order/order.entity';
 
 export enum StoreType {
   boucherie = 'boucherie',
@@ -52,4 +53,7 @@ export class Store extends BaseEntity {
 
   @OneToMany(() => Product, product => product.store)
   products: Product[];
+
+  @OneToMany(() => Order, orders => orders.store)
+  orders: Order[];
 }

@@ -1,13 +1,34 @@
 import { Repository, EntityRepository } from 'typeorm';
 import { Order } from './order.entity';
 import { CreateOrderDTO } from './dto/create-order.dto';
-import { FilterOrderDTO } from './dto/filter-order.dto';
+import { FilterOrderDTO, OrderSortType } from './dto/filter-order.dto';
 import { UnauthorizedException, NotFoundException } from '@nestjs/common';
 
 @EntityRepository(Order)
 export class OrderRepository extends Repository<Order> {
+
+  async getOrders(user , store) {
+
+    console.log('le user que je recupere: '+{user});
+
+    const query =  await this.find({ store : store.store_id , user: user.id_user });
+
+    return query;
+  }
+
+
+
+
   async findOrder(filterOrderDTO: FilterOrderDTO, user) {
-    let { search, order_type, take, skip, order, price } = filterOrderDTO;
+    let {
+      search,
+      order_type,
+      take,
+      skip,
+      orderSortType,
+      order_amount,
+      created_at,
+    } = filterOrderDTO;
     take = take || 10;
     skip = skip || 0;
 
@@ -17,8 +38,8 @@ export class OrderRepository extends Repository<Order> {
       query.andWhere('order.order_type=:order_type', { order_type });
     }
 
-    if (price) {
-      query.andWhere('order.price <= :price', { price });
+    if (order_amount) {
+      query.andWhere('order.order_amount <= :order_amount', { order_amount });
     }
 
     if (search) {
@@ -28,8 +49,15 @@ export class OrderRepository extends Repository<Order> {
       );
     }
 
-    if (order === 'price') {
-      query.orderBy({ 'order.price': 'ASC' });
+    if (created_at) {
+      query.andWhere('order.created_at <= :created_at ', { created_at });
+    }
+
+    if (orderSortType === OrderSortType.order_amount) {
+      query.orderBy({ 'order.order_amount <= :order_amount': 'ASC' });
+    }
+    if (orderSortType === OrderSortType.order_creationDate) {
+      query.orderBy({ 'order.created_at <= : created_at': 'ASC' });
     }
 
     const orders: any = await query
@@ -52,7 +80,7 @@ export class OrderRepository extends Repository<Order> {
       findOrder = await query.getOne();
     } catch (error) {
       throw new NotFoundException('not found ');
-      console.log(error);
+      //console.log(error);
     }
 
     return findOrder;

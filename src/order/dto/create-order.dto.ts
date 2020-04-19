@@ -1,7 +1,22 @@
 import { Delete } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, Min } from 'class-validator';
+import { IsString, IsNumber, Min, IsDate } from 'class-validator';
 import { Transform } from 'class-transformer';
+
+  const products = [
+      {
+        price: 10,
+        id_product: 'f3ce7082-dd03-4c3e-a9f1-95328a322d2d',
+        quantity: 3,
+        product_name: 'Papier toillette',
+      },
+      {
+        price: 2,
+        id_product: '346ef192-885a-4fab-bef3-61f2f4f9cf90',
+        quantity: 2,
+        product_name: 'banane',
+      },
+    ];
 
 export class CreateOrderDTO {
   @ApiProperty({ example: 'Hamid' })
@@ -27,7 +42,8 @@ export class CreateOrderDTO {
   phone_number: string;
 
   @ApiProperty({
-    example: '[]',
+    example:
+      products,
   })
   products: [
     {
@@ -41,13 +57,14 @@ export class CreateOrderDTO {
   @ApiProperty({
     example: '18-h',
   })
-  @IsString()
-  order_date: string;
+  collect_date: string;
 
   @ApiProperty({
     example: 20,
   })
+  @IsNumber()
   order_amount: number;
+
 }
 /*
 export enum OrderType {
