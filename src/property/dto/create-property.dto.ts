@@ -61,11 +61,23 @@ export class CreatePropertyDTO {
   })
   apartment_type: ApartmentType;
 
-  @ApiProperty({ example: 10 })
+  @ApiProperty({ example: 100000 })
   @Transform(estimated_price => parseInt(estimated_price))
   @IsNumber()
   @Min(0)
   estimated_price: number;
+
+  @ApiProperty({ example: 100 })
+  @Transform(area => parseInt(area))
+  @IsNumber()
+  @Min(0)
+  area: number;
+
+  @ApiProperty({ example: 10 })
+  @Transform(age => parseInt(age))
+  @IsNumber()
+  @Min(0)
+  age: number;
 
   @ApiProperty({ example: address })
   address: {
@@ -74,7 +86,15 @@ export class CreatePropertyDTO {
     city: string;
     state: string;
     zip_code: number;
+    lat: number;
+    lng: number;
   };
+
+  @ApiProperty({
+    example: 'id_address',
+  })
+  @IsString()
+  id_address: string;
 
   @ApiProperty({
     example: 'id_agency',

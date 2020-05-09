@@ -45,7 +45,7 @@ export class Property extends BaseEntity {
   @Column({ type: 'enum', enum: ApartmentType })
   apartment_type: string;
   @Column()
-  age: string;
+  age: number;
   @Column()
   area: number;
   @CreateDateColumn()

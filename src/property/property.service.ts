@@ -1,4 +1,4 @@
-import { OpenRouteDTO } from './dto/open-route';
+import { OpenRouteDTO } from './dto/open-route.dto';
 import {
   Injectable,
   NotFoundException,
@@ -6,9 +6,9 @@ import {
 } from '@nestjs/common';
 import { PropertyRepository } from './property.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreatePropertyDTO } from './dto/create-property';
+import { CreatePropertyDTO } from './dto/create-property.dto';
 import { Property } from './property.entity';
-import { FilterPropertyDTO } from './dto/filter-property';
+import { FilterPropertyDTO } from './dto/filter-property.dto';
 import { AddressRepository } from '../address/address.repository';
 import { UpdateResult } from 'typeorm';
 import { UserRepository } from '../user/user.repository';
@@ -68,6 +68,9 @@ export class PropertyService {
     const address = await this.addressRepository.findOne({
       id_address: id_address,
     });
+    if (!address) {
+      throw new NotFoundException("Nous n'avons pas trouvé d'adresse");
+    }
     if (!agency) {
       throw new NotFoundException("Nous n'avons pas trouvé ce magasins");
     }
