@@ -46,6 +46,8 @@ export class Property extends BaseEntity {
   apartment_type: string;
   @Column()
   age: string;
+  @Column()
+  area: number;
   @CreateDateColumn()
   created_at: Date;
 

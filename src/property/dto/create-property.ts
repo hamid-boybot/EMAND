@@ -27,7 +27,7 @@ export enum ApartmentType {
   t4 = 'T4',
   t5 = 'T5',
 }
-export class CreateProductDTO {
+export class CreatePropertyDTO {
   @ApiProperty({ example: 'La templerie' })
   @IsString()
   name: string;

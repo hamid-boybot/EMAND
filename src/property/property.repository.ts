@@ -55,8 +55,8 @@ export class PropertyRepository extends Repository<Property> {
       query.orderBy({ 'property.area': 'ASC' });
     }
 
-    if (sort === SortType.area) {
-      query.orderBy({ 'property.area': 'ASC' });
+    if (sort === SortType.city) {
+      query.orderBy({ 'property.address.city': 'ASC' });
     }
 
     const properties: any = await query
@@ -126,7 +126,7 @@ export class PropertyRepository extends Repository<Property> {
       estimated_price,
       apartment_type,
       area,
-      adress,
+      address,
     } = createPropertyDto;
 
     const findProperty = await this.findOne({ id_property: id });
@@ -158,7 +158,7 @@ export class PropertyRepository extends Repository<Property> {
         user: user,
         apartment_type: apartment_type,
         area: area,
-        adress: adress,
+        address: address,
       })
       .where({ id_property: id })
       .execute();

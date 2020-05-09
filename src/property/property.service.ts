@@ -4,104 +4,121 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ProductRepository } from './product.repository';
+import { PropertyRepository } from './property.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateProductDTO } from './dto/create-product.dto';
-import { Product } from './product.entity';
-import { FilterProductDTO } from './dto/filter-product.dto';
+import { CreatePropertyDTO } from './dto/create-property';
+import { Property } from './property.entity';
+import { FilterPropertyDTO } from './dto/filter-property';
 import { AddressRepository } from '../address/address.repository';
 import { UpdateResult } from 'typeorm';
 import { UserRepository } from '../user/user.repository';
-import { StoreRepository } from '../store/store.repository';
+import { AgencyRepository } from '../agency/agency.repository';
 
 @Injectable()
-export class ProductService {
+export class PropertyService {
   constructor(
-    @InjectRepository(ProductRepository)
-    private readonly eventRepository: ProductRepository,
+    @InjectRepository(PropertyRepository)
+    private readonly eventRepository: PropertyRepository,
     @InjectRepository(AddressRepository)
     private readonly addressRepository: AddressRepository,
     @InjectRepository(UserRepository)
     private readonly userRepository: UserRepository,
-    @InjectRepository(StoreRepository)
-    private readonly storeRepository: StoreRepository,
+    @InjectRepository(AgencyRepository)
+    private readonly agencyRepository: AgencyRepository,
   ) {}
 
-  async findProduct(filterProductDTO: FilterProductDTO, user) {
-    return await this.eventRepository.findProduct(filterProductDTO, user);
+  async findProperty(filterPropertyDTO: FilterPropertyDTO, user) {
+    return await this.eventRepository.findProperty(filterPropertyDTO, user);
   }
 
-  async getProduct(id, user): Promise<{}> {
-    return await this.eventRepository.getProduct(id, user);
+  async getProperty(id, user): Promise<{}> {
+    return await this.eventRepository.getProperty(id, user);
   }
 
-  async createProduct(
-    createProductDTO: CreateProductDTO,
+  async createProperty(
+    createPropertyDTO: CreatePropertyDTO,
     user,
-  ): Promise<Product> {
+  ): Promise<Property> {
     const findUser = await this.userRepository.findOne({
       id_user: user.id_user,
     });
 
     if (findUser.user_checked === false) {
       throw new UnauthorizedException(
-        'You need to verify your identity first then you could post products',
+        'You need to verify your identity first then you could post properties',
       );
     }
 
     const {
       name,
       description,
-      picture,
-      product_type,
-      price,
-      measure_type,
-      id_store,
-    } = createProductDTO;
+      pictures,
+      property_type,
+      estimated_price,
+      apartment_type,
+      age,
+      area,
+      id_address,
+      id_agency,
+    } = createPropertyDTO;
 
-    const store = await this.storeRepository.findOne({ id_store: id_store });
-
-    if (!store) {
+    const agency = await this.agencyRepository.findOne({
+      id_agency: id_agency,
+    });
+    const address = await this.addressRepository.findOne({
+      id_address: id_address,
+    });
+    if (!agency) {
       throw new NotFoundException("Nous n'avons pas trouvé ce magasins");
     }
 
-    const product = this.eventRepository.create();
+    const property = this.eventRepository.create();
 
-    product.name = name;
+    property.name = name;
 
-    product.description = description;
+    property.description = description;
 
-    product.picture = picture;
+    property.pictures = pictures;
 
-    product.product_type = product_type;
+    property.property_type = property_type;
 
-    product.measure_type = measure_type;
+    property.apartment_type = apartment_type;
 
-    product.price = price;
+    property.estimated_price = estimated_price;
 
-    product.user = findUser;
+    property.user = findUser;
 
-    product.store = store;
+    property.age = age;
+
+    property.area = area;
+
+    property.address = address;
+
+    property.agency = agency;
 
     try {
-      await product.save();
+      await property.save();
     } catch (error) {
       console.log(error);
     }
 
-    return product;
+    return property;
   }
 
-  async deleteProduct(id, user): Promise<{}> {
-    return await this.eventRepository.deleteProduct(id, user);
+  async deleteProperty(id, user): Promise<{}> {
+    return await this.eventRepository.deleteProperty(id, user);
   }
 
-  async updateProduct(
-    createProductDTO: CreateProductDTO,
+  async updateProperty(
+    createPropertyDTO: CreatePropertyDTO,
     user,
     id,
-  ): Promise<Product> {
-    return await this.eventRepository.updateProduct(createProductDTO, user, id);
+  ): Promise<Property> {
+    return await this.eventRepository.updateProperty(
+      createPropertyDTO,
+      user,
+      id,
+    );
   }
 
   async openRoute(openRouteDTO: OpenRouteDTO): Promise<UpdateResult> {
