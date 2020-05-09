@@ -10,7 +10,7 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { CreatePropertyDTO } from './dto/create-property';
+import { CreatePropertyDTO } from './dto/create-property.dto';
 import { PropertyService } from './property.service';
 import { Property } from './property.entity';
 import {
@@ -23,7 +23,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { getUser } from '../common/decorators/get-user.decorator';
-import { FilterPropertyDTO } from './dto/filter-property';
+import { FilterPropertyDTO } from './dto/filter-property.dto';
 import { Roles } from '../common/decorators/roles.decorator';
 import { RolesGuard } from '../common/guards/roles.guard';
 

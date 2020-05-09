@@ -2,38 +2,35 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, IsNumber, Min, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export enum StoreType {
-  boucherie = 'boucherie',
-  boulangerie = 'boulangerie',
-  pharmacie = 'pharmacie',
-  epicerie = 'epicerie',
-  fruit = 'fruit',
+export enum AgencyType {
+  physic = 'physic',
+  virtual = 'virtual',
 }
 
-export class FilterStoreDTO {
+export class FilterAgencyDTO {
   @ApiPropertyOptional({
-    example: 'Aubervillier',
+    example: '7 boulevard kennedy 75016',
   })
   @IsOptional()
   @IsString()
   address: string;
 
-  @ApiPropertyOptional({ example: 'boucherie' })
+  @ApiPropertyOptional({ example: '16ème arrondissement' })
   @IsOptional()
   @IsString()
   search: string;
 
-  @ApiPropertyOptional({ example: '20h' })
+  @ApiPropertyOptional({ example: '9h-20h' })
   @IsOptional()
   @IsString()
   hour: string;
 
   @ApiPropertyOptional({
-    enum: ['boucherie', 'boulangerie', 'pharmacie', 'epicerie'],
-    example: 'boulangerie',
+    enum: ['physic', 'virtual'],
+    example: 'virtual',
   })
   @IsOptional()
-  store_type: StoreType;
+  agency_type: AgencyType;
 
   @ApiPropertyOptional({ example: 10 })
   @Transform(take => parseInt(take))

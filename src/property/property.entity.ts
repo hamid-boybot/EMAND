@@ -54,8 +54,8 @@ export class Property extends BaseEntity {
   @ManyToOne(() => User, user => user.properties)
   user: User;
 
-  @ManyToOne(() => Agency, agency => agency.properties)
-  store: Agency;
+  @ManyToOne(() => Agency, agencies => agencies.property)
+  agencies: Agency[];
 
   @OneToOne(() => Address, address => address.property)
   address: Address;
