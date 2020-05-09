@@ -14,6 +14,7 @@ export class PropertyRepository extends Repository<Property> {
       skip,
       sort,
       estimated_price,
+      city,
       area,
     } = filterPropertyDTO;
     take = take || 10;
@@ -36,7 +37,9 @@ export class PropertyRepository extends Repository<Property> {
     if (area) {
       query.andWhere('property.area <= :area', { area });
     }
-
+    if (city) {
+      query.andWhere('property.adress.city ILIKE : city', { city });
+    }
     if (search) {
       query.andWhere(
         'property.name ILIKE :search OR property.description ILIKE :search',
@@ -48,8 +51,8 @@ export class PropertyRepository extends Repository<Property> {
       query.orderBy({ 'property.estimated_price': 'ASC' });
     }
 
-    if (sort === SortType.measure_type) {
-      query.orderBy({ 'property.measure_type': 'ASC' });
+    if (sort === SortType.area) {
+      query.orderBy({ 'property.area': 'ASC' });
     }
 
     if (sort === SortType.area) {
@@ -118,10 +121,12 @@ export class PropertyRepository extends Repository<Property> {
     const {
       name,
       description,
-      picture,
+      pictures,
       property_type,
       estimated_price,
-      measure_type,
+      apartment_type,
+      area,
+      adress,
     } = createPropertyDto;
 
     const findProperty = await this.findOne({ id_property: id });
@@ -147,11 +152,13 @@ export class PropertyRepository extends Repository<Property> {
       .set({
         name: name,
         description: description,
-        picture: picture,
+        pictures: pictures,
         property_type: property_type,
         estimated_price: estimated_price,
         user: user,
-        measure_type: measure_type,
+        apartment_type: apartment_type,
+        area: area,
+        adress: adress,
       })
       .where({ id_property: id })
       .execute();

@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { Product } from '../product/product.entity';
+import { Property } from '../property/property.entity';
 import { Address } from '../address/address.entity';
 import { Order } from '../order/order.entity';
 
@@ -80,8 +80,8 @@ export class User extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToMany(() => Product, product => product.user, { eager: true })
-  products: Product[];
+  @OneToMany(() => Property, properties => properties.user, { eager: true })
+  properties: Property[];
 
   @OneToMany(() => Order, order => order.user, { eager: true })
   orders: Order[];

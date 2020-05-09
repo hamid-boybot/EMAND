@@ -10,14 +10,14 @@ import {
 import { User } from '../user/user.entity';
 
 import { Agency } from '../store/store.entity';
-import { Adress } from '../address/adress.entity' ; 
+import { Address } from '../address/address.entity';
 
 export enum PropertyType {
   apartment = 'apartment',
   parking = 'parking',
   garage = 'garage',
   warehouse = 'warehouse',
-  cellar = 'cellar'
+  cellar = 'cellar',
 }
 
 export enum ApartmentType {
@@ -25,11 +25,11 @@ export enum ApartmentType {
   t2 = 'T2',
   t3 = 'T3',
   t4 = 'T4',
-  t5 = 'T5'
+  t5 = 'T5',
 }
 
 @Entity()
-export class Product extends BaseEntity {
+export class Property extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id_property: string;
   @Column()
@@ -45,9 +45,7 @@ export class Product extends BaseEntity {
   @Column({ type: 'enum', enum: ApartmentType })
   apartment_type: string;
   @Column()
-  age : string;
-  @Column()
-  adress : Adress ; 
+  age: string;
   @CreateDateColumn()
   created_at: Date;
 
@@ -56,4 +54,7 @@ export class Product extends BaseEntity {
 
   @ManyToOne(() => Agency, agency => agency.properties)
   store: Agency;
+
+  @OneToOne(() => Address, address => address.property)
+  address: Address;
 }
