@@ -1,6 +1,6 @@
 db:
   type: 'postgres'
-  host: 'database-2.c934rjf1iqqy.us-east-2.rds.amazonaws.com'
+  host: 'fastshop.c934rjf1iqqy.us-east-2.rds.amazonaws.com'
   port: 5432
   username: 'postgres'
   password: 'postgres'
