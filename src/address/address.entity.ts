@@ -5,9 +5,10 @@ import {
   Column,
   ManyToOne,
   CreateDateColumn,
+  OneToOne,
 } from 'typeorm';
 import { User } from '../user/user.entity';
-
+import { Property } from '../property/property.entity';
 @Entity()
 export class Address extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -37,9 +38,9 @@ export class Address extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(
-    type => User,
-    user => user.addresses,
-  )
+  @OneToOne(() => Property, property => property.address)
+  property: Property;
+
+  @ManyToOne(type => User, user => user.addresses)
   user: User;
 }

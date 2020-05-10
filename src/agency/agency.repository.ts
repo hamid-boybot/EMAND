@@ -40,6 +40,34 @@ export class AgencyRepository extends Repository<Agency> {
     return agencies;
   }
 
+  async getAgencies(ids, user): Promise<{}> {
+    let findAgencyListIds = new Array(ids.length);
+    let findAgency;
+    const findUser = await this.findOne({ user: user.id_user });
+    if (!findUser) {
+      throw new UnauthorizedException(
+        'You are not allowed to get the list of agencies',
+      );
+    }
+
+    for (var i = 0; i < ids.length; i++) {
+      let id = ids[i];
+      try {
+        const query = await this.createQueryBuilder('product').where(
+          'product.id_product=:id',
+          { id },
+        );
+        findAgency = await query.getOne();
+      } catch (error) {
+        console.log(error);
+        throw new NotFoundException('Agency not found ');
+      }
+      findAgencyListIds[i] = findAgency;
+    }
+
+    return findAgencyListIds;
+  }
+
   async deleteAgency(id, user): Promise<{}> {
     console.log(id, user);
     const findAgency = await this.findOne({ id_agency: id });

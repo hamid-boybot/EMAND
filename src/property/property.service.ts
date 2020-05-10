@@ -59,20 +59,22 @@ export class PropertyService {
       age,
       area,
       id_address,
-      id_agency,
+      ids_agencies,
     } = createPropertyDTO;
+    let ag = new Array(ids_agencies.length);
+    for (let index = 0; index < ids_agencies.length; index++) {
+      ag[index] = this.agencyRepository.findOne(ids_agencies[index]);
+    }
+    //ag = await this.agencyRepository.getAgencies(ids_agencies, user);
 
-    const agency = await this.agencyRepository.findOne({
-      id_agency: id_agency,
-    });
     const address = await this.addressRepository.findOne({
       id_address: id_address,
     });
     if (!address) {
       throw new NotFoundException("Nous n'avons pas trouvé d'adresse");
     }
-    if (!agency) {
-      throw new NotFoundException("Nous n'avons pas trouvé ce magasins");
+    if (!ag) {
+      throw new NotFoundException("Nous n'avons pas trouvé d'agence ... ");
     }
 
     const property = this.eventRepository.create();
@@ -97,7 +99,7 @@ export class PropertyService {
 
     property.address = address;
 
-    property.agency = agency;
+    property.agencies = ag;
 
     try {
       await property.save();

@@ -64,6 +64,9 @@ export class AgencyService {
     return await this.agencyRepository.deleteAgency(id, user);
   }
 
+  async getAgencies(ids, user): Promise<{}> {
+    return await this.agencyRepository.getAgencies(ids, user);
+  }
   async updateAgency(
     createAgencyDTO: CreateAgencyDTO,
     user,

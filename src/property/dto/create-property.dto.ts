@@ -97,8 +97,8 @@ export class CreatePropertyDTO {
   id_address: string;
 
   @ApiProperty({
-    example: 'id_agency',
+    example: ['id_agency1', 'id_agency2', 'id_agency3'],
   })
   @IsString()
-  id_agency: string;
+  ids_agencies: string[];
 }

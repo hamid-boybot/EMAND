@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PropertyRepository } from '../property/property.repository';
 import { AgencyRepository } from '../agency/agency.repository';
 import { UserRepository } from '../user/user.repository';
-import { OrderRepository } from '../order/order.repository';
 
 @Module({
   imports: [
@@ -13,7 +12,6 @@ import { OrderRepository } from '../order/order.repository';
       PropertyRepository,
       AgencyRepository,
       UserRepository,
-      OrderRepository,
     ]),
   ],
   providers: [AgencyService],

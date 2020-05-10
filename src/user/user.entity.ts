@@ -10,7 +10,7 @@ import {
 import * as bcrypt from 'bcryptjs';
 import { Property } from '../property/property.entity';
 import { Address } from '../address/address.entity';
-import { Order } from '../order/order.entity';
+//import { Order } from '../order/order.entity';
 
 export enum UserRole {
   user = 'user',
@@ -83,8 +83,8 @@ export class User extends BaseEntity {
   @OneToMany(() => Property, properties => properties.user, { eager: true })
   properties: Property[];
 
-  @OneToMany(() => Order, order => order.user, { eager: true })
-  orders: Order[];
+  // @OneToMany(() => Order, order => order.user, { eager: true })
+  // orders: Order[];
 
   @OneToMany(() => Address, address => address.user, { eager: true })
   addresses: Address[];

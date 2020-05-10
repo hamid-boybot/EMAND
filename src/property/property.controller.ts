@@ -1,4 +1,4 @@
-import { OpenRouteDTO } from './dto/open-route';
+import { OpenRouteDTO } from './dto/open-route.dto';
 import {
   Controller,
   Post,

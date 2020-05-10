@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { User } from '../user/user.entity';
 
-import { Agency } from '../store/store.entity';
+import { Agency } from '../agency/agency.entity';
 import { Address } from '../address/address.entity';
 
 export enum PropertyType {

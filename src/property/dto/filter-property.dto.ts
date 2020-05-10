@@ -59,7 +59,25 @@ export class FilterPropertyDTO {
   @Transform(estimated_price => parseInt(estimated_price))
   @IsNumber()
   @IsOptional()
-  price: number;
+  estimated_price: number;
+
+  @ApiPropertyOptional({ example: 25 })
+  @Transform(area => parseInt(area))
+  @IsNumber()
+  @IsOptional()
+  area: number;
+
+  @ApiPropertyOptional({
+    enum: ['apartment', 'parking', 'garage', 'warehouse', 'cellar'],
+    example: 'apartment',
+  })
+  @IsOptional()
+  property_type: PropertyType;
+
+  @ApiPropertyOptional({ city: '20eme arrondissement Dto' })
+  @IsString()
+  @IsOptional()
+  city: string;
 
   @ApiPropertyOptional({
     example: 'estimated_price',
