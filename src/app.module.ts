@@ -14,7 +14,6 @@ import { AgencyModule } from './agency/agency.module';
     AuthModule,
     PropertyModule,
     AgencyModule,
-    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

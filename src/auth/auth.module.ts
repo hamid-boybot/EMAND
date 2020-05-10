@@ -1,4 +1,4 @@
-import { ProductRepository } from '../product/product.repository';
+import { PropertyRepository } from '../property/property.repository';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
@@ -13,7 +13,7 @@ import * as config from 'config';
 const jwtConfig = config.get('jwt');
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserRepository, ProductRepository]),
+    TypeOrmModule.forFeature([UserRepository, PropertyRepository]),
     PassportModule,
     JwtModule.register({
       secret: jwtConfig.secret,

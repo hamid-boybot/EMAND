@@ -74,7 +74,7 @@ export class FilterPropertyDTO {
   @IsOptional()
   property_type: PropertyType;
 
-  @ApiPropertyOptional({ city: '20eme arrondissement Dto' })
+  @ApiPropertyOptional({ example: '20eme arrondissement Dto' })
   @IsString()
   @IsOptional()
   city: string;

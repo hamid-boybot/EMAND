@@ -1,4 +1,4 @@
-import { ProductRepository } from '../product/product.repository';
+import { PropertyRepository } from '../property/property.repository';
 import {
   UserInformationDTO,
   ProfileType,
@@ -31,7 +31,7 @@ export class AuthService {
     private userRepository: UserRepository,
     private readonly jwtService: JwtService,
     private mailService: MailService,
-    private readonly productRepository: ProductRepository,
+    private readonly propertyRepository: PropertyRepository,
   ) {}
 
   async signUp(authCredentialsDTO: AuthCredentialsDTO): Promise<User> {
@@ -95,14 +95,14 @@ export class AuthService {
         .groupBy('user.id_user')
         .getRawOne();
 
-      const findProduct: any = await this.productRepository
-        .createQueryBuilder('product')
-        .innerJoin('product.user', 'user', 'user.id_user = :id', {
+      const findProperty: any = await this.propertyRepository
+        .createQueryBuilder('property')
+        .innerJoin('property.user', 'user', 'user.id_user = :id', {
           id: profile_id,
         })
         .getMany();
 
-      const profile = { user: findPublicProfile, product: findProduct };
+      const profile = { user: findPublicProfile, property: findProperty };
       return profile;
     }
 

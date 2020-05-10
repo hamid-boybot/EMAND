@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 import { User } from '../user/user.entity';
 
@@ -34,7 +35,7 @@ export class Property extends BaseEntity {
   id_property: string;
   @Column()
   name: string;
-  @Column()
+  @Column('simple-array')
   pictures: string[];
   @Column()
   description: string;
@@ -54,7 +55,7 @@ export class Property extends BaseEntity {
   @ManyToOne(() => User, user => user.properties)
   user: User;
 
-  @ManyToOne(() => Agency, agencies => agencies.property)
+  @OneToMany(() => Agency, agencies => agencies.property, { eager: true })
   agencies: Agency[];
 
   @OneToOne(() => Address, address => address.property)

@@ -1,19 +1,19 @@
 import { ValidatorConstraint, ValidationArguments } from 'class-validator';
-import { ProductRepository } from '../../product/product.repository';
+import { PropertyRepository } from '../../property/property.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 
-@ValidatorConstraint({ name: 'FindProduct', async: true })
+@ValidatorConstraint({ name: 'FindProperty', async: true })
 @Injectable()
-export class FindProduct {
+export class FindProperty {
   constructor(
-    @InjectRepository(ProductRepository)
-    private readonly productRepository: ProductRepository,
+    @InjectRepository(PropertyRepository)
+    private readonly propertyRepository: PropertyRepository,
   ) {}
 
   async validate(value: any, args: ValidationArguments) {
     console.log(typeof value + ' ' + JSON.stringify(args));
-    const found = await this.productRepository.find();
+    const found = await this.propertyRepository.find();
     if (found) return true;
     return false;
   }
