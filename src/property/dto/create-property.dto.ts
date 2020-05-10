@@ -1,6 +1,6 @@
 import { Delete } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, Min } from 'class-validator';
+import { IsString, IsNumber, Min, IsArray } from 'class-validator';
 import { Transform } from 'class-transformer';
 //import { IsString } from 'util';
 
@@ -39,7 +39,7 @@ export class CreatePropertyDTO {
       'https://static.actu.fr/uploads/2019/07/AdobeStock_90990567-854x568.jpeg',
     ],
   })
-  @IsString()
+  @IsArray()
   pictures: string[];
 
   @ApiProperty({
@@ -99,6 +99,6 @@ export class CreatePropertyDTO {
   @ApiProperty({
     example: ['id_agency1', 'id_agency2', 'id_agency3'],
   })
-  @IsString()
+  @IsArray()
   ids_agencies: string[];
 }

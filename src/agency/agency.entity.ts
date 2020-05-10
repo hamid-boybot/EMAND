@@ -48,7 +48,7 @@ export class Agency extends BaseEntity {
   @ManyToOne(() => User, user => user.properties)
   user: User;
 
-  @OneToMany(() => Property, property => property.agencies)
+  @ManyToOne(() => Property, property => property.agencies)
   property: Property[];
 
   // @OneToMany(() => mandat, mandat => mandat.agency)
