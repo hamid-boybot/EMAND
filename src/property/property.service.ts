@@ -58,7 +58,7 @@ export class PropertyService {
       apartment_type,
       age,
       area,
-      id_address,
+      // id_address,
       ids_agencies,
     } = createPropertyDTO;
     let ag = new Array(ids_agencies.length);
@@ -67,12 +67,12 @@ export class PropertyService {
     }
     //ag = await this.agencyRepository.getAgencies(ids_agencies, user);
 
-    const address = await this.addressRepository.findOne({
-      id_address: id_address,
-    });
-    if (!address) {
-      throw new NotFoundException("Nous n'avons pas trouvé d'adresse");
-    }
+    // const address = await this.addressRepository.findOne({
+    //   id_address: id_address,
+    // });
+    // if (!address) {
+    //   throw new NotFoundException("Nous n'avons pas trouvé d'adresse");
+    // }
     if (!ag) {
       throw new NotFoundException("Nous n'avons pas trouvé d'agence ... ");
     }
@@ -97,7 +97,7 @@ export class PropertyService {
 
     property.area = area;
 
-    property.address = address;
+    // property.address = address;
 
     property.agencies = ag;
 

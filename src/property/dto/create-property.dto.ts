@@ -90,11 +90,11 @@ export class CreatePropertyDTO {
     lng: number;
   };
 
-  @ApiProperty({
-    example: 'id_address',
-  })
-  @IsString()
-  id_address: string;
+  // @ApiProperty({
+  //   example: 'id_address',
+  // })
+  // @IsString()
+  // id_address: string;
 
   @ApiProperty({
     example: ['id_agency1', 'id_agency2', 'id_agency3'],

@@ -85,6 +85,8 @@ export class PropertyRepository extends Repository<Property> {
     return findProperty;
   }
 
+  // proprieté par agence
+
   async deleteProperty(id, user): Promise<{}> {
     const findProperty = await this.findOne({ id_property: id });
 
