@@ -12,6 +12,21 @@ const address = {
   country: 'France',
   zip_code: 93300,
 };
+
+const agencies = [
+  {
+    agency_name: 'ImmoTeps',
+    id_agency: 'b7e2a2cb-ee25-4381-a2c5-d03634a7e7ca',
+    agency_type: 'physic',
+    agency_adress: '16eme, 93300',
+  },
+  {
+    name: 'ImmoTeps15',
+    id_agency: '8270a616-6ba1-42f6-a3bb-fb86314de3f3',
+    agency_type: 'physic',
+    adress: '15eme, 93300',
+  },
+];
 export enum PropertyType {
   apartment = 'apartment',
   parking = 'parking',
@@ -97,8 +112,14 @@ export class CreatePropertyDTO {
   // id_address: string;
 
   @ApiProperty({
-    example: ['id_agency1', 'id_agency2', 'id_agency3'],
+    example: agencies,
   })
-  @IsArray()
-  ids_agencies: string[];
+  agencies: [
+    {
+      agency_name: string;
+      id_agency: string;
+      agency_type: string;
+      agency_adress: string;
+    }
+  ];
 }

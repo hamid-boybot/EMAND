@@ -39,6 +39,7 @@ export class PropertyService {
     createPropertyDTO: CreatePropertyDTO,
     user,
   ): Promise<Property> {
+    const property = this.eventRepository.create();
     const findUser = await this.userRepository.findOne({
       id_user: user.id_user,
     });
@@ -59,12 +60,29 @@ export class PropertyService {
       age,
       area,
       // id_address,
-      ids_agencies,
+      agencies,
     } = createPropertyDTO;
-    let ag = new Array(ids_agencies.length);
-    for (let index = 0; index < ids_agencies.length; index++) {
-      ag[index] = this.agencyRepository.findOne(ids_agencies[index]);
+    const listAgencies = [];
+    for (const element of agencies) {
+      let foundAgency;
+      try {
+        foundAgency = await this.agencyRepository.findOne({
+          id_agency: element.id_agency,
+        });
+
+        if (!foundAgency) {
+          throw new NotFoundException(`Agency ${element.id_agency} not found`);
+        }
+        listAgencies.push(foundAgency);
+        // property.id_agency = foundAgency.id_agency;
+        // property.agency_name = foundAgency.name;
+        // property.agency_adress = foundAgency.address;
+        // property.agency_type = foundAgency.agency_type;
+      } catch (error) {
+        console.log(error);
+      }
     }
+    console.log(agencies);
     //ag = await this.agencyRepository.getAgencies(ids_agencies, user);
 
     // const address = await this.addressRepository.findOne({
@@ -73,11 +91,6 @@ export class PropertyService {
     // if (!address) {
     //   throw new NotFoundException("Nous n'avons pas trouvé d'adresse");
     // }
-    if (!ag) {
-      throw new NotFoundException("Nous n'avons pas trouvé d'agence ... ");
-    }
-
-    const property = this.eventRepository.create();
 
     property.name = name;
 
@@ -97,9 +110,9 @@ export class PropertyService {
 
     property.area = area;
 
-    // property.address = address;
+    property.agencies = listAgencies;
 
-    property.agencies = ag;
+    // property.address = address;
 
     try {
       await property.save();
