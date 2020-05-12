@@ -48,8 +48,8 @@ export class Agency extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(() => User, user => user.properties)
-  user: User;
+  // @ManyToOne(() => User, user => user.properties)
+  // user: User;
 
   @ManyToMany(() => Property, properties => properties.agencies)
   properties: Property[];
