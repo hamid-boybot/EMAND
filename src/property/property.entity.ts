@@ -7,6 +7,9 @@ import {
   ManyToOne,
   OneToOne,
   OneToMany,
+  ManyToMany,
+  JoinTable,
+  JoinColumn,
 } from 'typeorm';
 import { User } from '../user/user.entity';
 
@@ -55,9 +58,11 @@ export class Property extends BaseEntity {
   @ManyToOne(() => User, user => user.properties)
   user: User;
 
-  @OneToMany(() => Agency, agencies => agencies.property, { eager: true })
+  @ManyToMany(() => Agency, agencies => agencies.properties, { eager: true })
+  @JoinTable()
   agencies: Agency[];
 
-  @OneToOne(() => Address, address => address.property)
+  @OneToOne(() => Address, address => address.property, { eager: true })
+  @JoinColumn()
   address: Address;
 }

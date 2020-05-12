@@ -6,10 +6,12 @@ import {
   Unique,
   CreateDateColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Property } from '../property/property.entity';
 import { Address } from '../address/address.entity';
+import { Agency } from '../agency/agency.entity';
 //import { Order } from '../order/order.entity';
 
 export enum UserRole {
@@ -88,6 +90,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Address, address => address.user, { eager: true })
   addresses: Address[];
+
+  @OneToOne(() => Agency, agency => agency.user, { onDelete: 'CASCADE' })
+  agency: Agency;
 
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);

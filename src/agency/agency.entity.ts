@@ -6,6 +6,9 @@ import {
   CreateDateColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
+  ManyToMany,
+  JoinColumn,
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { Property } from '../property/property.entity';
@@ -48,8 +51,12 @@ export class Agency extends BaseEntity {
   @ManyToOne(() => User, user => user.properties)
   user: User;
 
-  @ManyToOne(() => Property, property => property.agencies)
-  property: Property[];
+  @ManyToMany(() => Property, properties => properties.agencies)
+  properties: Property[];
+
+  @OneToOne(type => User)
+  @JoinColumn()
+  user: User;
 
   // @OneToMany(() => mandat, mandat => mandat.agency)
   // orders: Order[];

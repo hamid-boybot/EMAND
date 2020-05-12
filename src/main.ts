@@ -22,7 +22,7 @@ async function bootstrap() {
     .setVersion('0.1')
     .addTag('letsgo')
     .addBearerAuth({ type: 'apiKey', in: 'header', name: 'Authorization' })
-    .setContact('Nidhal SABBAH', 'nidhal.sabbah@gmail.com', 'okok')
+    .setContact('BASSAM Hamid', 'hamid.bassam@uha.fr', 'okok')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
